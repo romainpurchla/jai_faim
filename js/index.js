@@ -1,6 +1,22 @@
 var dataUrl = "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTHxUSR_hDbpjeD0ASqp5xC6ElYtfcXBodDK-PqVKTN1AQsCJedniBZ9-8IlNzTuVGrRqX84ntho1Oa/pub?gid=0&single=true&output=csv";
 
-var options = ["test", "test", "test", "test", "test", "test", "test"];
+var options = ["Burger king",
+  "Alima",
+  "Booster",
+  "Kebab",
+  "Kimchi",
+  "Quick",
+  "Indien strassen",
+  "Pizza hut",
+  "Sodexo",
+  "Epicerie bio howald",
+  "Snooze",
+  "Boucherie",
+  "Max and Moritz",
+  "Café Belair",
+  "Lux Burger",
+  "Buffalo",
+  "Bistro tennis howald"];
 
 var startAngle = 0;
 var arc = null;
@@ -11,6 +27,8 @@ var spinTime = 0;
 var spinTimeTotal = 0;
 
 var ctx;
+
+var audio = new Audio('wheel.mp3');
 
 initData(options);
 
@@ -49,7 +67,7 @@ function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
     var outsideRadius = 300;
-    var textRadius = 180;
+    var textRadius = 220;
     var insideRadius = 125;
 
     ctx = canvas.getContext("2d");
@@ -79,7 +97,7 @@ function drawRouletteWheel() {
       ctx.fillStyle = "black";
       ctx.translate(402 + Math.cos(angle + arc / 2) * textRadius, 
       320 + Math.sin(angle + arc / 2) * textRadius);
-      ctx.rotate(angle + arc + 15 / 2 + Math.PI / 2);
+      ctx.rotate(angle + arc + 15.5 / 2 + Math.PI / 2);
       var text = options[i];
       ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
       ctx.restore();
@@ -113,6 +131,7 @@ function spin() {
     spinAngleStart = Math.random() * 10 + 10;
     spinTime = 0;
     spinTimeTotal = Math.random() * 3 + 4 * 2000;
+    audio.play();
     rotateWheel();
   }, 2000);
   
@@ -136,6 +155,7 @@ function rotateWheel() {
 }
 
 function stopRotateWheel() {
+  audio.pause();
   clearTimeout(spinTimeout);
   var degrees = startAngle * 180 / Math.PI + 90;
   var arcd = arc * 180 / Math.PI;
