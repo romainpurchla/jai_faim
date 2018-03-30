@@ -12,6 +12,8 @@ var spinTimeTotal = 0;
 
 var ctx;
 
+initData(options);
+
 function initData(result) {
   options = result;
   arc = Math.PI / (options.length / 2);
