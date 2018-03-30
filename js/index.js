@@ -99,10 +99,27 @@ function drawRouletteWheel() {
 }
 
 function spin() {
-  spinAngleStart = Math.random() * 10 + 10;
-  spinTime = 0;
-  spinTimeTotal = Math.random() * 3 + 4 * 1000;
-  rotateWheel();
+  $("#cf7 canvas").removeClass("opaque");
+  if ($("#cf7 img.opaque")[0]){      
+      $("#cf7 img").removeClass("opaque");  
+      $("#cf7 canvas").addClass("opaque");
+
+      spinAngleStart = Math.random() * 10 + 10;
+      spinTime = 0;
+      spinTimeTotal = Math.random() * 3 + 4 * 5000;
+      rotateWheel();
+  } else {
+    $("#cf7 img").addClass("opaque");
+    setTimeout(function(){
+      $("#cf7 img").removeClass("opaque");  
+      $("#cf7 canvas").addClass("opaque");
+
+      spinAngleStart = Math.random() * 10 + 10;
+      spinTime = 0;
+      spinTimeTotal = Math.random() * 3 + 4 * 5000;
+      rotateWheel();
+    }, 2000);
+  }
 }
 
 function sheet() {
