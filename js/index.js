@@ -48,17 +48,17 @@ function getColor(item, maxitem) {
 function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
-    var outsideRadius = 200;
-    var textRadius = 160;
+    var outsideRadius = 300;
+    var textRadius = 180;
     var insideRadius = 125;
 
     ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,500,500);
+    ctx.clearRect(0,0,900,900);
 
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
 
-    ctx.font = 'bold 12px Helvetica, Arial';
+    ctx.font = '12px Helvetica, Arial';
 
     for(var i = 0; i < options.length; i++) {
       var angle = startAngle + i * arc;
@@ -66,8 +66,8 @@ function drawRouletteWheel() {
       ctx.fillStyle = getColor(i, options.length);
 
       ctx.beginPath();
-      ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
-      ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+      ctx.arc(402, 320, outsideRadius, angle, angle + arc, false);
+      ctx.arc(402, 320, insideRadius, angle + arc, angle, true);
       ctx.stroke();
       ctx.fill();
 
@@ -77,9 +77,9 @@ function drawRouletteWheel() {
       ctx.shadowBlur    = 0;
       ctx.shadowColor   = "rgb(220,220,220)";
       ctx.fillStyle = "black";
-      ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 
-                    250 + Math.sin(angle + arc / 2) * textRadius);
-      ctx.rotate(angle + arc / 2 + Math.PI / 2);
+      ctx.translate(402 + Math.cos(angle + arc / 2) * textRadius, 
+      320 + Math.sin(angle + arc / 2) * textRadius);
+      ctx.rotate(angle + arc + 15 / 2 + Math.PI / 2);
       var text = options[i];
       ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
       ctx.restore();
@@ -88,14 +88,14 @@ function drawRouletteWheel() {
     //Arrow
     ctx.fillStyle = "black";
     ctx.beginPath();
-    ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
-    ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-    ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-    ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+    ctx.moveTo(402 - 4, 320 - (outsideRadius + 5));
+    ctx.lineTo(402 + 4, 320 - (outsideRadius + 5));
+    ctx.lineTo(402 + 4, 320 - (outsideRadius - 5));
+    ctx.lineTo(402 + 9, 320 - (outsideRadius - 5));
+    ctx.lineTo(402 + 0, 320 - (outsideRadius - 13));
+    ctx.lineTo(402 - 9, 320 - (outsideRadius - 5));
+    ctx.lineTo(402 - 4, 320 - (outsideRadius - 5));
+    ctx.lineTo(402 - 4, 320 - (outsideRadius + 5));
     ctx.fill();
   }
 }
@@ -103,6 +103,7 @@ function drawRouletteWheel() {
 function spin() {
   var spinButton = document.getElementById("spin");
   spinButton.disabled = true;
+  spinButton.innerHTML = "C'est parti !";
   $("#cf7 #canvas").removeClass("opaque");
   $("#cf7 #philippe").addClass("opaque");
   setTimeout(function(){
@@ -142,10 +143,11 @@ function stopRotateWheel() {
   ctx.save();
   ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
-  ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  ctx.fillText(text, 402 - ctx.measureText(text).width / 2, 320 + 10);
   ctx.restore();
   var spinButton = document.getElementById("spin");
   spinButton.disabled = false;
+  spinButton.innerHTML = "J'AI FAIM !";
 }
 
 function easeOut(t, b, c, d) {
