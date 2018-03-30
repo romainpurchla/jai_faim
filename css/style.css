@@ -8,7 +8,7 @@
     padding:       20px 15px;
     color:         #ffffff;
     display:       inline-block;
-    font:          italic 700 26px/1 "Calibri", sans-serif;
+    font:          italic 100 15px/1 "Calibri", sans-serif;
     text-align:    center;
     text-shadow:   1px 1px #ffffff;
 }
@@ -17,5 +17,4 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
 }

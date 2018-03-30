@@ -19,6 +19,7 @@ function initData(result) {
 
 
 document.getElementById("spin").addEventListener("click", spin);
+document.getElementById("sheet").addEventListener("click", sheet);
 
 function byte2Hex(n) {
   var nybHexString = "0123456789ABCDEF";
@@ -102,6 +103,11 @@ function spin() {
   spinTime = 0;
   spinTimeTotal = Math.random() * 3 + 4 * 1000;
   rotateWheel();
+}
+
+function sheet() {
+  var win = window.open("https://docs.google.com/spreadsheets/d/1lzoxzRKcmdeLPCZA4MqYw5GFX7QJGK2oTaN-O0dVK_0/edit", '_blank');
+  win.focus();
 }
 
 function rotateWheel() {
