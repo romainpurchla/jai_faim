@@ -1,6 +1,6 @@
 var dataUrl = "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTHxUSR_hDbpjeD0ASqp5xC6ElYtfcXBodDK-PqVKTN1AQsCJedniBZ9-8IlNzTuVGrRqX84ntho1Oa/pub?gid=0&single=true&output=csv";
 
-var options = null;
+var options = ["test", "test", "test", "test", "test", "test", "test"];
 
 var startAngle = 0;
 var arc = null;
@@ -99,27 +99,20 @@ function drawRouletteWheel() {
 }
 
 function spin() {
-  $("#cf7 canvas").removeClass("opaque");
-  if ($("#cf7 img.opaque")[0]){      
-      $("#cf7 img").removeClass("opaque");  
-      $("#cf7 canvas").addClass("opaque");
+  var spinButton = document.getElementById("spin");
+  spinButton.disabled = true;
+  $("#cf7 #canvas").removeClass("opaque");
+  $("#cf7 #philippe").addClass("opaque");
+  setTimeout(function(){
+    $("#cf7 #philippe").removeClass("opaque");  
+    $("#cf7 #canvas").addClass("opaque");
 
-      spinAngleStart = Math.random() * 10 + 10;
-      spinTime = 0;
-      spinTimeTotal = Math.random() * 3 + 4 * 5000;
-      rotateWheel();
-  } else {
-    $("#cf7 img").addClass("opaque");
-    setTimeout(function(){
-      $("#cf7 img").removeClass("opaque");  
-      $("#cf7 canvas").addClass("opaque");
-
-      spinAngleStart = Math.random() * 10 + 10;
-      spinTime = 0;
-      spinTimeTotal = Math.random() * 3 + 4 * 5000;
-      rotateWheel();
-    }, 2000);
-  }
+    spinAngleStart = Math.random() * 10 + 10;
+    spinTime = 0;
+    spinTimeTotal = Math.random() * 3 + 4 * 2000;
+    rotateWheel();
+  }, 2000);
+  
 }
 
 function sheet() {
@@ -149,6 +142,8 @@ function stopRotateWheel() {
   var text = options[index]
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
   ctx.restore();
+  var spinButton = document.getElementById("spin");
+  spinButton.disabled = false;
 }
 
 function easeOut(t, b, c, d) {
