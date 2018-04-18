@@ -25,21 +25,72 @@ var spinTimeout = null;
 var spinArcStart = 10;
 var spinTime = 0;
 var spinTimeTotal = 0;
-
 var ctx;
 
 var audio = new Audio('wheel.mp3');
-
-initData(options);
 
 function initData(result) {
   options = result;
   arc = Math.PI / (options.length / 2);
 }
 
+initData(options);
 
-document.getElementById("spin").addEventListener("click", spin);
-document.getElementById("sheet").addEventListener("click", sheet);
+function isWednesday() {
+  var now = new Date();
+  var day = now.getDay();
+  if (day == 3) {
+    return true;
+  } else {
+    return false;
+  }  
+}
+
+function build() {
+  if (isWednesday()) {
+    var d1 = document.getElementById('bodyContent');
+    var template = ['<div class="row justify-content-md-center" id="wednesday-bk">',
+    '      <div class="text-center">',
+    '          Mercredi c\'est BURGER KING !',
+    '         <button type="button" id="osefWednesday" class="btn btn-danger">OSEF !</button>',
+    '      </div>',
+    '  </div>'].join('\n');
+    d1.innerHTML = template;
+   document.getElementById("osefWednesday").addEventListener("click", osefWednesday);
+  } else {
+    buildWheelPlease();
+  } 
+}
+
+function buildWheelPlease() {
+  var d1 = document.getElementById('bodyContent');
+  var template = ['<div class="row justify-content-md-center">',
+    '   <div class="text-center">',
+    '          <div class="btn-group-vertical">',
+    '         <button type="button" id="spin" class="btn btn-danger">J\'AI FAIM !</button>',
+    '         <button type="button" id="sheet" class="btn btn-light">Modifier la liste des restaurants</button>',
+    '         </div>',
+    '     </div>',
+    '  </div>',
+    '  <div class="row justify-content-md-center">',
+    '     <div class="text-center">',
+    '         <div id="cf7" class="shadow">',
+    '             <img src="img/philippe_risoli.jpg" id="philippe" class="img-fluid animation opaque" alt="philippe risoli">',
+    '             <canvas id="canvas" class="animation" width="804" height="804"></canvas>',
+    '         </div>',
+    '     </div>',
+    '  </div>'].join('\n');
+    d1.innerHTML = template;
+    initData(options);
+    drawRouletteWheel();
+    document.getElementById("spin").addEventListener("click", spin);
+    document.getElementById("sheet").addEventListener("click", sheet);
+}
+
+function osefWednesday() {
+  document.getElementById("wednesday-bk").remove();
+  buildWheelPlease();
+}
 
 function byte2Hex(n) {
   var nybHexString = "0123456789ABCDEF";
@@ -191,9 +242,10 @@ function httpGet(theUrl)
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
         {
             console.log("response " + xmlhttp.responseText);
-            var arrayOfLines = xmlhttp.responseText.match(/[^\r\n]+/g);
-            initData(arrayOfLines);
-            drawRouletteWheel();
+            options = xmlhttp.responseText.match(/[^\r\n]+/g);
+            build();
+        } else {
+          build();
         }
     }
     xmlhttp.open("GET", theUrl, false );
